@@ -14,7 +14,7 @@ export default function RevenueChart({ data }) {
                     color: "hsl(var(--chart-1))",
                 },
             }}
-            className="h-[300px] mt-4"
+            className="h-auto sm:h-[300px] mt-4"
         >
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>

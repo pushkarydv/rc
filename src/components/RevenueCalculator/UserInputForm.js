@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 
 export default function UserInputForm({ onCalculate }) {
-    const [currentRevenue, setCurrentRevenue] = useState('')
+    const [currentRevenue, setCurrentRevenue] = useState(0)
     const [growthRate, setGrowthRate] = useState(0)
 
     const handleSubmit = (e) => {
@@ -44,8 +44,26 @@ export default function UserInputForm({ onCalculate }) {
                     step={0.1}
                     value={[growthRate]}
                     onValueChange={(value) => setGrowthRate(value[0])}
+                    className="my-3"
                 />
-                <span className="text-sm text-muted-foreground">{growthRate.toFixed(1)}%</span>
+
+                <Input
+                    id="growthRateInput"
+                    type="number"
+                    value={growthRate}
+                    onChange={(e) => {
+                        const value = parseFloat(e.target.value)
+                        if (value >= 0 && value <= 100) {
+                            setGrowthRate(value)
+                        }
+                    }}
+                    placeholder="Enter growth rate"
+
+                    required
+                    min="0"
+                    max="100"
+                    step="0.1"
+                />
             </div>
             <Button type="submit">Calculate</Button>
         </form>
