@@ -1,24 +1,32 @@
-import React from 'react';
+import React from 'react'
 
-function ProjectedRevenueOutput({ projections }) {
-  if (projections.length === 0) return null;
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+
+
+export default function ProjectedRevenueOutput({ projections }) {
+  if (projections.length === 0) return null
 
   const highestGrowth = projections.reduce((prev, current) =>
     (prev.revenue < current.revenue) ? current : prev
-    , projections[0]);
+    , projections[0])
 
   return (
-    <div>
-      <h3>Projected Revenue</h3>
-      <ul>
-        {projections.map((proj, index) => (
-          <li key={index} style={proj === highestGrowth ? { fontWeight: 'bold' } : {}}>
-            Year {proj.year}: ${proj.revenue.toFixed(2)}
-          </li>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Year</TableHead>
+          <TableHead>Projected Revenue</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {projections.map((proj) => (
+          <TableRow key={proj.year} className={proj === highestGrowth ? "font-bold" : ""}>
+            <TableCell>Year {proj.year}</TableCell>
+            <TableCell>${proj.revenue.toFixed(2)}</TableCell>
+          </TableRow>
         ))}
-      </ul>
-    </div>
-  );
+      </TableBody>
+    </Table>
+  )
 }
 
-export default ProjectedRevenueOutput;
